@@ -1,0 +1,9 @@
+server:
+  rootPath: /rfcweb/*
+  applicationContextPath: /
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 8090
