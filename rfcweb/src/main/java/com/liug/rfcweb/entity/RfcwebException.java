@@ -1,11 +1,12 @@
 package com.liug.rfcweb.entity;
 
-public class RfcwebException {
-    public RfcwebException( ctorParam ) {
-        int ;
+public class RfcwebException extends RuntimeException {
+    public RfcwebException( ) {
+        int errCode;
     }
 
     @Override
     public Throwable fillInStackTrace() {
+        return null;
     }
 }
