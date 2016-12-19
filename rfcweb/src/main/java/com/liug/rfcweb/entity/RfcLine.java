@@ -4,15 +4,6 @@ public class RfcLine {
     private RfcLineType type;
     private String text;
     private byte level;
-    private int mark;
-
-    public int getMark() {
-        return mark;
-    }
-    
-    public void setMark( int val ) {
-        this.mark = val;
-    }
 
     public byte getLevel() {
         return level;
@@ -37,11 +28,10 @@ public class RfcLine {
     public void setType( RfcLineType val ) {
         this.type = val;
     }
-    public RfcLine(RfcLineType t, String _text, byte l, int _mark) {
+    public RfcLine(RfcLineType t, String _text, byte l) {
         type = t;
         text = _text;
         level = l;
-        mark = _mark;
     }
     public RfcLine() {}
 }

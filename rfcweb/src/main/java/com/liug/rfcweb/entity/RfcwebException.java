@@ -1,8 +1,15 @@
 package com.liug.rfcweb.entity;
 
 public class RfcwebException extends RuntimeException {
-    public RfcwebException( ) {
-        int errCode;
+    private int errCode;
+
+    public RfcwebException(int err, String msg) {
+        super(msg);
+        errCode = err;
+    }
+
+    public int getErrCode() {
+        return errCode;
     }
 
     @Override
