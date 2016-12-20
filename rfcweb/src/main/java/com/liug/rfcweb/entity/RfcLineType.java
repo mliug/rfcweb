@@ -5,7 +5,8 @@ enum RfcLineType {
     TEXT(2),
     HEADER(3),
     FOOTER(4),
-    SEPARATOR(5);
+    SEPARATOR(5),
+    EMPTYLINE(6);
 
     private RfcLineType(int v) {
         this.value = v;

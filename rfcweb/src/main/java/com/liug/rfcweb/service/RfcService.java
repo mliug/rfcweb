@@ -25,6 +25,14 @@ public class RfcService {
         return (key == null) ? false : rfcTexts.containsKey(key);
     }
 
+    public boolean addText(String key, RfcText text) {
+        if (key == null || text == null) {
+            return false;
+        }
+        rfcTexts.put(key, text);
+        return true;
+    }
+
     public RfcText getText(String key) {
         if (key == null) {
             return new RfcwebException(ErrCode.NULL_KEY, "key is null");

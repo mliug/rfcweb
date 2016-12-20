@@ -3,6 +3,8 @@ package com.liug.rfcweb.entity;
 public class RfcLine {
     private RfcLineType type;
     private String text;
+    // when type is TITLE, level is the level of title
+    // when type is EMPTYLINE, level is the number of empty lines.
     private byte level;
 
     public byte getLevel() {

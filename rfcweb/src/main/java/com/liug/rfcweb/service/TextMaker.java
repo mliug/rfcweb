@@ -2,12 +2,22 @@ package com.liug.rfcweb.service;
 
 import java.util.Deque;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.io.File;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.FileReader;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.jvnet.hk2.annotations.Service;
+
+import com.liug.rfcweb.util.ErrCode;
+import com.liug.rfcweb.entity.RfcLine;
+import com.liug.rfcweb.entity.RfcText;
+import com.liug.rfcweb.entity.RfcLineType;
 
 @Service
 public class TextMaker extends Thread {
@@ -16,6 +26,9 @@ public class TextMaker extends Thread {
     private Deque<String> taskQue; // task queue, element is the file name without postfix
     @Inject
     private RfcService rfcService;
+
+    @Inject
+	private Configuration configuration;
 
     public TextMaker() {
         taskQue = new ArrayDeque<String>();
@@ -66,7 +79,111 @@ public class TextMaker extends Thread {
         }
     }
 
-    private void processTask(filename) {
+    private void processTask(String filename) {
+        if (rfcService.hasKey(filename)) {
+            logger.info("Text of {} exists, omit this task.", filename);
+            return;
+        }
+
+        String fileN = filename + ".txt";
+        File file = new File(fileN);
+        if (!file.exists()) {
+            logger.warn("file {} doesn\'t exist", fileN);
+            cometdErrorMsg(ErrCode.FILE_NOT_EXIST, fileN);
+            return;
+        }
+        processFile(file, filename);
+    }
+
+    private void processFile(File file, string nameNoPostfix) {
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(file));
+            String filename = file.getName();
+            RfcText text = new RfcText();
+            text.setLines(new ArrayList<RfcLine>());
+            String line;
+            while ((line = reader.readLine()) != null) {
+                processLine(text, line);
+            }
+            text.setFileName(filename);
+            text.setId(makeRfcNo(nameNoPostfix));
+            rfcService.addText(filename, text);
+        } catch (IOException e) {
+            logger.warn("error occured: {}", e.getMessage());
+            cometdErrorMsg(ErrCode.PROCESSFILE_IOE, e.getMessage());
+        } finally {
+            if (reader != null) {
+                reader.close();
+            }
+        }
+    }
+
+    private void processLine(RfcText text, String line) {
+        List<RfcLine> lines = text.getLines();
+        RfcLine lastLine = (lines.size() == 0) ? null : lines.get(lines.size() - 1);
+        RfcLine newLine = new RfcLine();
+
+        if (line == null || line.length() == 0) { // empty lines
+            if (lastLine != null && lastLine.getType() == RfcLineType.EMPTYLINE) {
+                lastLine.setLevel(lastLine.getLevel() + (byte)1);
+                return;
+            }
+            newLine.setType(RfcLineType.EMPTYLINE);
+            newLine.setText(null);
+            newLine.setLevel((byte)1);
+        } else if (line.charAt(0) == ' ') { // the text
+            newLine.setType(RfcLineType.TEXT);
+            newLine.setText(line);
+        } else if (line.length() == 1 && line.charAt(0) == '\f') { // \f
+            if (lastLine != null && lastLine.getType() == RfcLineType.TITLE()) {
+                lastLine.setType(RfcLineType.HEADER);
+            }
+            newLine.setType(RfcLineType.SEPARATOR);
+            newLine.setText(null);
+        } else { // the title
+            if (lastLine != null && lastLine.getType() == RfcLineType.SEPARATOR) {
+                newLine.setType(RfcLineType.FOOTER);
+            } else {
+                newLine.setType(RfcLineType.TITLE);
+            }
+            newLine.setText(line);
+            newLine.setLevel(calculateLevle(line));
+        }
+
+        lines.add(newLine);
+    }
+
+    private int makeRfcNo(String name) {
+        int rfcNo;
+        try {
+            rfcNo = Integer.parseInt(name);
+        } catch (Exception e) { rfcNo = 0; }
+
+        return rfcNo;
+    }
+
+    private byte calculateLevle(String line) {
+        // count the number of '.' in the first word as the value of level
+        byte level;
+        String[] words = line.split(" ");
+        for (String w : words) {
+            if ( w.length() == 0 || w.equals("Appendix")) {
+                continue;
+            }
+            byte[] bs = w.getBytes();
+            level = 0;
+            for (byte b : bs) {
+                level += (b == (byte)0x2e) ? 1 : 0;
+            }
+            level = (level == 0) ? 1 : level;
+            break;
+        }
+        return level;
+    }
+
+    private void cometdErrorMsg(int errCode, String description) {
+        //TODO:
     }
 
 }
