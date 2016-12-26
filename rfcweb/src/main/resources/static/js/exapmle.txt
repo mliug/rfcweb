@@ -1,0 +1,162 @@
+url:http://127.0.0.1:8080/rfcweb/rfcweb/file/rfc5277
+
+{
+    "fileName": "rfc5277.txt",
+    "id": 0,
+    "lines": [
+        {
+            "type": "EMPTYLINE",
+            "text": null,
+            "level": 6
+        },
+        {
+            "type": "TITLE",
+            "text": "Network Working Group                                        S. Chisholm",
+            "level": 1
+        },
+        {
+            "type": "TITLE",
+            "text": "Request for Comments: 5277                                        Nortel",
+            "level": 1
+        },
+        {
+            "type": "TITLE",
+            "text": "Category: Standards Track                                     H. Trevino",
+            "level": 1
+        },
+        {
+            "type": "TEXT",
+            "text": "                                                                   Cisco",
+            "level": 0
+        },
+        {
+            "type": "TEXT",
+            "text": "                                                               July 2008",
+            "level": 0
+        },
+        {
+            "type": "EMPTYLINE",
+            "text": null,
+            "level": 2
+        },
+        {
+            "type": "TEXT",
+            "text": "                      NETCONF Event Notifications",
+            "level": 0
+        },
+        {
+            "type": "EMPTYLINE",
+            "text": null,
+            "level": 1
+        },
+        {
+            "type": "TITLE",
+            "text": "Status of This Memo",
+            "level": 1
+        },
+        {
+            "type": "EMPTYLINE",
+            "text": null,
+            "level": 1
+        },
+        {
+            "type": "TEXT",
+            "text": "   This document specifies an Internet standards track protocol for the",
+            "level": 0
+        },
+        {
+            "type": "TEXT",
+            "text": "   Internet community, and requests discussion and suggestions for",
+            "level": 0
+        },
+        {
+            "type": "TEXT",
+            "text": "   improvements.  Please refer to the current edition of the \"Internet",
+            "level": 0
+        },
+        {
+            "type": "TEXT",
+            "text": "   Official Protocol Standards\" (STD 1) for the standardization state",
+            "level": 0
+        },
+        {
+            "type": "TEXT",
+            "text": "   and status of this protocol.  Distribution of this memo is unlimited.",
+            "level": 0
+        },
+        {
+            "type": "EMPTYLINE",
+            "text": null,
+            "level": 1
+        },
+        {
+            "type": "TITLE",
+            "text": "Abstract",
+            "level": 1
+        },
+        {
+            "type": "EMPTYLINE",
+            "text": null,
+            "level": 1
+        },
+        {
+            "type": "TEXT",
+            "text": "   This document defines mechanisms that provide an asynchronous message",
+            "level": 0
+        },
+        {
+            "type": "TEXT",
+            "text": "   notification delivery service for the Network Configuration protocol",
+            "level": 0
+        },
+        {
+            "type": "TEXT",
+            "text": "   (NETCONF).  This is an optional capability built on top of the base",
+            "level": 0
+        },
+        {
+            "type": "TEXT",
+            "text": "   NETCONF definition.  This document defines the capabilities and",
+            "level": 0
+        },
+        {
+            "type": "TEXT",
+            "text": "   operations necessary to support this service.",
+            "level": 0
+        },
+        {
+            "type": "EMPTYLINE",
+            "text": null,
+            "level": 27
+        },
+        {
+            "type": "HEADER",
+            "text": "Chisholm & Trevino          Standards Track                     [Page 1]",
+            "level": 1
+        },
+        {
+            "type": "SEPARATOR",
+            "text": null,
+            "level": 0
+        },
+        {
+            "type": "FOOTER",
+            "text": "RFC 5277              NETCONF Event Notifications              July 2008",
+            "level": 1
+        },
+        {
+            "type": "EMPTYLINE",
+            "text": null,
+            "level": 2
+        },
+        {
+            "type": "TITLE",
+            "text": "Table of Contents",
+            "level": 1
+        },
+        {
+            "type": "EMPTYLINE",
+            "text": null,
+            "level": 1
+        }]
+}

@@ -1,6 +1,6 @@
 package com.liug.rfcweb.entity;
 
-enum RfcLineType {
+public enum RfcLineType {
     TITLE(1),
     TEXT(2),
     HEADER(3),

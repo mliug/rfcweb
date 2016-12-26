@@ -1,3 +1,9 @@
-.test{
-background-color:#b0b0b0;
+.day{
+    color:#123456;
+    background-color:#ccddee;
 }
+.night{
+    color:#aabbcc;
+    background-color:#234567;
+}
+.outline {background-color:#baaade;}
